@@ -23,7 +23,7 @@ const chainMaker = {
     } else {
       this.ch.splice(position-1, 1)                                                     //или удалить через сплайс
     }
-    return this;                                                                        /
+    return this;                                                                        
   },
   
   reverseChain() {
