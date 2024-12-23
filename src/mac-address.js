@@ -14,9 +14,16 @@ const { NotImplementedError } = require('../extensions/index.js');
  * For 00-1B-63-84-45-E6, the output should be true.
  *
  */
-function isMAC48Address(/* n */) {
-  throw new NotImplementedError('Not implemented');
-  // remove line with error and write your code here
+function isMAC48Address(n) {
+
+  //можно писать длинную регулярку, но проще разбить
+  let mm = n.split('-');
+
+  //mm.length === 6 ?    -  не обязательно условия по задаче. Дописал сам чтобы отсеить не 6 пар
+  //для каждой пары цифр проверяем регулярку на a-f и 0-9
+  return mm.length === 6 ? mm.every((m) => /[a-f0-9]{2}/i.test(m)) : false
+  
+  
 }
 module.exports = {
   isMAC48Address

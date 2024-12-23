@@ -23,9 +23,56 @@ const { NotImplementedError } = require('../extensions/index.js');
  *  [1, 1, 1]
  * ]
  */
-function minesweeper(/* matrix */) {
-  throw new NotImplementedError('Not implemented');
-  // remove line with error and write your code here
+function minesweeper(matrix) {
+  let row = matrix.length;
+  let col = matrix[0].length;
+
+  let feeld = [];
+
+  for (let r = 0; r < row; r++) {
+    feeld[r] = [];
+    for (let c = 0; c < col; c++) {
+      feeld[r].push(0)
+    }
+  }
+
+  for (let r = 0; r < feeld.length; r++) {
+    for (let c = 0; c < feeld[0].length; c++) {
+      if (matrix[r][c] === true) {
+        if (r === 0) {
+          if (c === 0) {
+            feeld[r][c+1] +=1;
+            feeld[r+1][c+1] +=1;
+            feeld[r+1][c] +=1;
+          } else if (c === feeld[0].length-1) {
+            feeld[r][c-1] +=1;
+            feeld[r+1][c-1] +=1;
+            feeld[r+1][c-2] +=1;
+          }
+        } else if (r === feeld.length) {
+          if (c === 0) {
+            feeld[r][c+1] +=1;
+            feeld[r-1][c+1] +=1;
+            feeld[r-1][c+2] +=1;
+          } else if (c === feeld[0].length-1) {
+            feeld[r][c-1] +=1;
+            feeld[r-1][c-1] +=1;
+            feeld[r-1][c] +=1;
+          }
+        } else {
+            feeld[r-1][c-1] +=1;
+            feeld[r-1][c] +=1;
+            feeld[r-1][c+1] +=1;
+            feeld[r][c-1] +=1;
+            feeld[r][c+1] +=1;
+            feeld[r+1][c-1] +=1;
+            feeld[r+1][c] +=1;
+            feeld[r+1][c+1] +=1;
+        }
+      }
+    }
+  }
+  return feeld
 }
 
 module.exports = {

@@ -22,9 +22,28 @@ const { NotImplementedError } = require('../extensions/index.js');
  * }
  *
  */
-function getDNSStats(/* domains */) {
-  throw new NotImplementedError('Not implemented');
-  // remove line with error and write your code here
+function getDNSStats(domains) {
+
+  let reverses = [];        //развернуть элементы
+  domains.forEach((domain) => {
+    let revers = domain.split('.').reverse();
+    reverses.push(revers)
+    });
+
+  let obj = {};     //создать объект который вернем
+  
+  reverses.forEach((revers) => {                //для каждого подмассива в массиве
+    let prop = '';                              //создать св-во объекта
+    for (let i = 0; i < revers.length; i++) {
+      prop = `${prop}.${revers[i]}`;            //сво-во = св-во + тек i элемент (.ru + .yandex = .ru.yandex)
+      if (!obj.hasOwnProperty(prop)) {          //если св-ва нету, то создать равное 1
+        obj[prop] = 1;
+      } else {                                  //если св-во есть, то +1
+        obj[prop] += 1
+      } 
+    }
+  })
+  return obj
 }
 
 module.exports = {

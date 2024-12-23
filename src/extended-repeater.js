@@ -15,9 +15,30 @@ const { NotImplementedError } = require('../extensions/index.js');
  * => 'STRINGPLUS00PLUS00PLUS**STRINGPLUS00PLUS00PLUS**STRINGPLUS00PLUS00PLUS'
  *
  */
-function repeater(/* str, options */) {
-  throw new NotImplementedError('Not implemented');
-  // remove line with error and write your code here
+function repeater(str, options) {
+  let newstr;
+  
+  //если options.addition === false чтобы не кидало ошибку
+  if (options.addition === undefined) {
+    newstr = ''
+  } else {
+    newstr = String(options.addition);  //приведем false к строке 'false'
+  }
+    
+  //склеить второй разделитель
+  let res = '';
+  for (let i = 1; i < options.additionRepeatTimes; i++) {
+    newstr = newstr + (options.additionSeparator || '|') + String(options.addition) || '';
+  }
+
+  res = str + newstr  //строка для старта = стринг + 2-ой разделитель
+
+  //собрать всю строку с повторениями
+  for (let i = 1; i < options.repeatTimes; i++) {
+    res = res + (options.separator || '+') + str + newstr
+  }
+  
+ return res;
 }
 
 module.exports = {
